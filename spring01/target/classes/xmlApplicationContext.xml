@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- Spring이 관리할 Bean등록 -->
+  <bean class="com.yedam.app.xml.SamsungTV"/>
+  <bean id="tv" class="com.yedam.app.xml.LuckyGoldstarTV" />
+  
+  <!-- Dependency Injection 설정 -->
+  <bean id="chef" class="com.yedam.app.xml.Chef" />
+  <bean class="com.yedam.app.xml.Restaurant">
+    <constructor-arg ref="chef" />
+    
+    <!-- setter injection -->
+    <property name="chef" ref="chef" />
+    
+  </bean>
+
+
+
+
+</beans>
+

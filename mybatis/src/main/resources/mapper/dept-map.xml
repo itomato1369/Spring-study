@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.mybaits.mapper.DeptMapper">
+	<!-- Interface DeptMapper에 대응되는 mapper.xml -->
+	<!-- 전체조회 return type이 중요함-->
+	<select id="selectAll" resultType="DeptVO">
+		SELECT department_id
+			   , department_name
+			   , manager_id
+			   , location_id
+		FROM departments
+		ORDER BY department_id
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectInfo" parameterType="DeptVO" resultType="DeptVO">
+	    SELECT department_id
+			   , department_name
+			   , manager_id
+			   , location_id
+		FROM departments
+		WHERE department_id = #{departmentId}
+		<!-- 연산식 다 버려짐 
+		, COUNT(*) as count EmpVO의 Field에도 선언되어 있어야함
+		-->
+		<!-- Tag안의 #{}는 PreparedStatement의 ? 
+		parameterType의 Field 명 -->
+	</select>
+	<!-- 등록 EMPLOYEES_SEQ.NEXTVAL-->
+	<insert id="insertInfo" parameterType="DeptVO" >
+	    INSERT INTO departments
+	    			(
+	    				department_id
+	    				, department_name
+	    				, manager_id
+	    				, location_id
+	    			)
+	    			VALUES
+	    			(
+	    				, #{departmentId}
+	    				, #{departmentName}
+	    				, #{managerId}
+	    				, #{locationId}
+	    			)
+	</insert>
+	<!-- 수정 -->
+	<update id="updateInfo" parameterType="DeptVO" >
+	    UPDATE departments
+	    SET
+	        department_name = #{departmentName}
+	        , manager_id = #{managerId}
+	        , location_id = #{locationId}
+	    WHERE department_id = #{departmentId}
+	</update>
+	<!-- 삭제 -->	
+	<delete id="deleteInfo" parameterType="DeptVO">
+	    DELETE FROM employees
+	    WHERE department_id = #{departmentId}	
+	</delete>
+</mapper>

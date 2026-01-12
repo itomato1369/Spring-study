@@ -1,0 +1,9 @@
+.metadata/
+bin/
+.classpath
+.settings/
+eclipse-jee-2025-06-R-win32-x86_64/
+hello/
+
+db.properties
+*.properties
