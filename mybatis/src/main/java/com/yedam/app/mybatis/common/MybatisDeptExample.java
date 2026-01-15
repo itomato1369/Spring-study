@@ -12,9 +12,9 @@ public class MybatisDeptExample {
 	private static DeptMapper deptMap = new DeptMapperImpl();
 
 	public static void main(String[] args) {
-		selectAll();
+		//selectAll();
 		//selectInfo();
-		//insertInfo();
+		insertInfo();
 		//updateInfo();
 		//deleteInfo();
 	}
@@ -30,5 +30,26 @@ public class MybatisDeptExample {
 			System.out.println(dept);
 		}
 	}
+	public static void insertInfo() {
+		// DeptVO에 lombok @Data 해놓았으니 getter setter알아서 다 되어있음
+		DeptVO deptVO = new DeptVO();
+		deptVO.setDepartmentId(300);
+		deptVO.setDepartmentName("Media");
+		deptVO.setManagerId(420);
+		deptVO.setLocationId(1800);
+		
+		// set으로 Field값을 바꾼걸 결과 result에 담는데 바뀐column은 1
+		// DB가 
+		int result = deptMap.insertInfo(deptVO);
+		System.out.println(result);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.yedam.app.mybatis.common.MybatisSqlSessionFactory;
 import com.yedam.app.mybatis.service.DeptVO;
-import com.yedam.app.mybatis.service.EmpVO;
 
 public class DeptMapperImpl implements DeptMapper {
 	// DB와 연결 접속 정보가지는 factory
@@ -35,27 +34,27 @@ public class DeptMapperImpl implements DeptMapper {
 
 	@Override
 	public int insertInfo(DeptVO dept) {
-		try (SqlSession session = factory.openSession()) {
+		try (SqlSession session = factory.openSession(true)) {
 			// Insert update delete 는 return의 int
-			int result = session.insert("com.yedam.app.mybaits.mapper.DeptMapper.insertInfo");
+			int result = session.insert("com.yedam.app.mybaits.mapper.DeptMapper.insertInfo", dept);
 			return result;
 		}
 	}
 
 	@Override
 	public int updateInfo(DeptVO dept) {
-		try (SqlSession session = factory.openSession()) {
+		try (SqlSession session = factory.openSession(true)) {
 			// Insert update delete 는 return의 int
-			int result = session.update("com.yedam.app.mybaits.mapper.DeptMapper.updateInfo");
+			int result = session.update("com.yedam.app.mybaits.mapper.DeptMapper.updateInfo", dept);
 			return result;
 		}
 	}
 
 	@Override
 	public int deleteInfo(int deptId) {
-		try (SqlSession session = factory.openSession()) {
+		try (SqlSession session = factory.openSession(true)) {
 			// Insert update delete 는 return의 int
-			int result = session.delete("com.yedam.app.mybaits.mapper.DeptMapper.deleteInfo");
+			int result = session.delete("com.yedam.app.mybaits.mapper.DeptMapper.deleteInfo", deptId);
 			return result;
 		}
 	}

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: demo
+
+# 들여쓰기로 관계의 정보를 파악
+
+# spring:
+#   datasource:
+#      driverClassName: 
+#      url :
+#      username :
+#      password :
+#  
+

@@ -23,7 +23,7 @@
 		, COUNT(*) as count EmpVO의 Field에도 선언되어 있어야함
 		-->
 		<!-- Tag안의 #{}는 PreparedStatement의 ? 
-		parameterType의 Field 명 -->
+		parameterType은 그냥 Type -->
 	</select>
 	<!-- 등록 EMPLOYEES_SEQ.NEXTVAL-->
 	<insert id="insertInfo" parameterType="DeptVO" >
@@ -36,7 +36,7 @@
 	    			)
 	    			VALUES
 	    			(
-	    				, #{departmentId}
+	    				 #{departmentId}
 	    				, #{departmentName}
 	    				, #{managerId}
 	    				, #{locationId}
@@ -52,7 +52,7 @@
 	    WHERE department_id = #{departmentId}
 	</update>
 	<!-- 삭제 -->	
-	<delete id="deleteInfo" parameterType="DeptVO">
+	<delete id="deleteInfo" parameterType="int">
 	    DELETE FROM employees
 	    WHERE department_id = #{departmentId}	
 	</delete>
