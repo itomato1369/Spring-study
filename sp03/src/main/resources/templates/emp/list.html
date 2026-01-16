@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<title>This is Practice</title>
+</head>
+<body>
+  <div class="container">
+    <h3>Employee Information Form</h3>
+      <table class="table">
+      <thead>
+          <tr>
+            <th>No.</th>
+            <th>employee ID</th>
+            <th>last name</th>
+            <th>job id</th>
+            <th>hire date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!--/* 반복문 하면 th 콜론 each */-->
+        <th:block th:each="info, numbering: ${emp}">
+             <tr>
+               <td>[[ ${numbering.count} ]]</td>
+               <td>[[ ${info.employeeId} ]]</td>
+               <td>[[ ${info.firstName} ]]</td>
+               <td>[[ ${info.jobId} ]]</td>
+                <!--/* dates는 내장 util   #밑에서만 동작  */-->
+               <td>[[ ${#dates.format(info.hireDate, 'yyyy年MM月dd日')} ]]</td>
+             </tr>
+           </th:block>
+        </tbody>
+      </table>
+  </div>
+
+</body>
+</html>

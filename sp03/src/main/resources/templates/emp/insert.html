@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <title>This is insert employee information</title>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h3>Register an employee</h3>
+      <!--/* path경로는 action 
+              @{} 링크표현식  경로를 생성할 때 사용 
+              context-path를 찾아줌
+              변수가 아닌   /경로
+              href, src, action 
+           */-->
+      <form name="insertForm" th:action="@{/empInsert}" method="post">
+        <!--/* 입력 tag는 속성이 없다 
+		      form tag안의 name 속성이 key값으로 변경됨 그러니 data를 받는 모든 tag에서 name을 가져야겠지? 
+		      key        value
+		      &key=value&key=value...
+		      */-->
+        <div>
+          <label for="employee-name">last name</label>
+          <input id="employee-name" type="text" name="lastName" />
+        </div>
+
+        <div>
+          <label for="email">email</label>
+          <input id="email" type="email" name="email" />
+        </div>
+
+        <!--/* input 은 yyyy-MM-dd로 보냄 
+		                @DateTimeFormat 
+		                SimpleDateFormat  class 
+                        자동 변환 HandlerAdpater가 처리해줌 
+              */-->
+        <div>
+          <label for="hire-date">hire date</label>
+          <input id="hire-date" type="date" name="hireDate" />
+        </div>
+
+        <div>
+          <label for="job-id">job ID</label>
+          <input id="job-id" type="text" name="jobId" />
+        </div>
+
+        <div>
+          <label for="salary">salary</label>
+          <input id="salary" type="number" step="0,01" name="salary" />
+        </div>
+        <div>
+          <button type="reset">RESET</button>
+          <button type="submit">REGISTER</button>
+        </div>
+      </form>
+    </div>
+    <!--/* from tag가 전송되기 전에 처리 */-->
+    <script>
+      // form tag 찾기 [name="속성에 대한 부분"]
+      document
+        .querySelector('form[name="insertForm"]')
+        .addEventListener("submit", function (event) {
+          // data가 제대로 들어왔는지 확인 유효성 검사
+          // 일단 submit 기능을 멈춰야 함
+          event.preventDefault();
+          // 그리고 확인 data가 있는지 없는지 변수에 담아서 확인할거야
+          let nameTag = document.querySelector('form [name="lastName"]');
+
+          if (nameTag.value == "") {
+            alert("Please INSERT last name");
+            // nameTag = name이 lastName인 input 필드로
+            nameTag.focus();
+            // 전송되면 안되니까 함수 종료
+            return;
+          }
+
+          let salaryTag = document.querySelector('form [name="salary"]');
+
+          if (salaryTag.value == "") {
+            alert("Please INSERT salary");
+            // nameTag = name이 lastName인 input 필드로
+            salaryTag.value = 0;
+            salaryTag.focus();
+            // 전송되면 안되니까 함수 종료
+            return;
+          }
+
+          alert("REGISTER SUCCESSED");
+          // 현재 실행중인 event
+          event.currentTarget.submit();
+        });
+    </script>
+  </body>
+</html>

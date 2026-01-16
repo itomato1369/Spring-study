@@ -43,29 +43,41 @@ public class EmpController {
 		// 데이터 담기 "key" : "value"  형태로 "이름"이랑 "실제 데이터"
  		model.addAttribute("emp", list);
 		
-		// 데이터 담아서 보여줄 page 선택
+		// 데이터 담아서 보여줄 page 선택 folder 
 		return "emp/list";
 		// page 이름은 / 시작 하면 안됨
-		// prefix = classpath:/templates/
-		// subfix = .html
+		// prefix = classpath:/templates/emp/list
+		// suffix = .html
 	}
-	// 단건조회 QueryString command object or @RequestParam
+	// 단건조회 QueryString        command object or @RequestParam
 	@GetMapping("empInfo")
 	public String empInfo(EmpVO empVO, Model model) {
 		// 제공할 service 
 		EmpVO findVO = empService.findByEmployeeId(empVO);
 		// 데이터 담기 "key" : "value"  형태로 "emp"이랑 "findVO"
+		/*
+		 * 매개변수 @ 없고 객체면 command object
+		 * 
+		 * QueryString = "key" : "value"  
+		 * HTTP Method가 GET이면 경로에 data가 넘어감
+		 */
 		model.addAttribute("emp", findVO);
 		return "emp/info";
+		/*
+		 * empInfo?employeeId=
+		 */
 	}
 	
 	// 등록 - 페이지
+	/*
+	 * Method 가 GET이지만 매개변수가 없다
+	 */
 	@GetMapping("empInsert")
 	public String empInsertForm() {
 		return "emp/insert";
 	}
 	// -처리  Model -> page 통신
-	@PostMapping("empInsert") // <form> QueryString page가 바뀌어야함
+	@PostMapping("empInsert") // page를 바꿀 때 <form> QueryString page가 바뀌어야함
 	public String empInsertProcess(EmpVO empVO) {
 		// Service 제공
 		int employeeId = empService.addEmpInfo(empVO);
@@ -75,7 +87,7 @@ public class EmpController {
 		return "redirect:empInfo?employeeId=" + employeeId ;
 	}
 	
-	// 수정 -  페이지 단건조회
+	// 수정 -  페이지 단건조회 @가 없고 객체다 command object QueryString (key = value) ? 를 기준으로  이 page는 단건조회와 비슷
 	@GetMapping("empUpdate")
 	public String empUpdate(EmpVO empVO, Model model) {
 		// 제공할 service 
@@ -85,9 +97,12 @@ public class EmpController {
 		// 보여주는 page는 다름
 		return "emp/update";
 	}
+	
 	// -처리   등록을 처리와 비슷
+	// 같은 Field명을 쓰니까 EmpVO 똑같이 가져와야지
 	@PostMapping("empUpdate")
 	@ResponseBody // AJAX 데이터만 반환 AJAX호출하는 함수가 필요함        JSON을 활용
+	// form tag가 가지고 있는 정보는 필요없음 수정을 하는 data만 
 	public Map<String, Object> empUdateProcess(@RequestBody EmpVO empVO) {
 		return empService.modify(empVO);
 	}

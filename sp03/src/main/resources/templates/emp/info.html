@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<title>This is emp/info</title>
+</head>
+<body>
+  <div class="container">
+    <h3>Employee Details</h3>
+    <div>
+      <div>
+      <!--/* 입력 tag는 속성이 없다 */-->
+        <label for="employee-id">employee ID</label>
+        <input id="employee-id" type="text" th:value="${emp.employeeId}" readonly>
+      </div>
+      
+      <div>
+        <label for="name">last name</label>
+        <input id="name" type="text" th:value="${emp.lastName}" readonly>
+      </div>
+      
+      <div>
+        <label for="email">email</label>
+        <input id="email" type="email" th:value="${emp.email}" readonly>
+      </div>
+      
+      <div>
+        <label for="hire-date">hire date</label>
+        <input id="hire-date" type="date" th:value="${#dates.format(emp.hireDate, 'yyyy-MM-dd')}" readonly>
+      </div>
+      
+      <div>
+        <label for="job-id">job ID</label>
+        <input id="job-id" type="text" th:value="${emp.jobId}" readonly>
+      </div>
+      
+      <div>
+        <label for="salary">salary</label>
+        <input id="salary" type="number" step="0,01" th:value="${emp.salary}" readonly>
+      </div>
+    </div>
+    
+    <div>
+      <button type="button">UPDATE</button>
+      <button type="button">LIST</button>
+      <button type="button">DELETE</button>
+    </div>
+  	
+  </div>
+
+</body>
+</html>
