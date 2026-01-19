@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--/* 외부 Library */-->
+<html lang=ko xmlns:th="http://www.thymeleaf.org/"
+	                   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<th:block
+	th:replace="~{common/configs/default-configs :: ContextPathConfig}"></th:block>
+<th:block
+	th:replace="~{common/configs/default-configs :: BootstrapConfig}"></th:block>
+<title>title</title>
+</head>
+<body>
+ <!--/* insert 자식요소를 집어넣는다 */-->
+	<header th:insert="~{common/fragments/default-header :: DefaultHeader}"></header>
+	<main>
+		<div layout:fragment="Content"></div>
+	</main>
+	<aside>안녕</aside>
+	<footer>©Copyright from</footer>
+
+</body>
+</html>

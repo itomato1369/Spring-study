@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX</title>
+</head>
+<body>
+	<div>
+		<input type="file" name="uploadFiles" multiple>
+		<button class="uploadBtn">upload</button>
+	</div>
+	<script>
+		document.querySelector('.uploadBtn')
+			.addEventListener('click', function(event) {
+				/*
+				form tag 이용해서 file 보낼때 
+				*/
+			let formData = new FormData();
+			/* 
+			　　1) <from/>태그 내부의 입력태그 정보를 한번에 받음
+			   　2) AJAX를 이용하여 'Content-type:multipart/form-data'를 보내는 경우
+			      formData 통신을 위한 객체 
+			
+			*/
+			
+			let input = event.currentTarget.previousElementSibling;
+			let fileList = input.files;
+			/*
+			files 속성은 배열
+			*/
+			
+			for (let file of fileList) {
+				formData.append(input.name, file);
+				/*
+				append는 추가  , key가 같은데 여러개 data를 입력가능
+				*/
+			}
+			
+			/*
+			업로드시 console 에서 확인가능 
+			type : "image/png"
+			
+				------WebKitFormBoundaryuImOFbkgxpJhj8QB
+				Content-Disposition: form-data; name="uploadFiles"; filename="폼폼푸린.png"
+				Content-Type: image/png
+
+
+				------WebKitFormBoundaryuImOFbkgxpJhj8QB--
+				
+				내부에 저장에 대한 encoding 안함
+				멀티미디어  = 영상, 이미지, 음성, 텍스트 
+			*/
+			console.log(formData.get("uploadFiles"));
+			
+			fetch('uploadsAjax', {
+				method : 'post',
+				body : formData
+			})
+			.then(res => res.json())
+			.then(result => {
+				for (let image of result){
+					let imgTag = `<img src='/apple/images/${image}' style="width : 50%;">`;
+					document.querySelector('div').insertAdjacentHTML("beforeend", imgTag);
+				}
+			})
+			.catch(err => console.log(err));
+			
+		});
+		
+	</script>
+	
+</body>
+</html>

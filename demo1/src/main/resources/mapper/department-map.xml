@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.practice.java.department.mapper.DepartmentMapper">
+	<!-- 전체조회 -->
+	<select id="selectAllDepartments" resultType="DepartmentVO">
+		SELECT dept_id
+		, dept_name
+		, parent_dept_id
+		, phone_number
+		, created_at
+		, is_location
+		FROM departments
+		ORDER BY dept_id
+	</select>
+
+	<!-- 단건조회 #{}는 DepartmentVO의 Field명 -->
+	<select id="findByDepartmentId" resultType="DepartmentVO">
+		SELECT dept_id
+		, dept_name
+		, parent_dept_id
+		, phone_number
+		, created_at
+		, is_location
+		FROM departments
+		WHERE dept_id = #{deptId}
+	</select>
+	<!-- INSERT -->
+	<insert id="registerDepartment" parameterType="DepartmentVO">
+		INSERT INTO departments
+		(
+		dept_id
+		, dept_name
+		, parent_dept_id
+		, phone_number
+		, is_location
+		)
+		VALUES
+		(
+		#{deptId}
+		, #{deptName}
+		, #{parentDeptId}
+		, #{phoneNumber}
+		, #{isLocation}
+		)
+	</insert>
+	<!-- UPDATE -->
+	<update id="modifyDepartment" parameterType="DepartmentVO">
+		UPDATE departments
+		SET dept_name = #{deptName}
+		, parent_dept_id = #{parentDeptId}
+		, phone_number = #{phoneNumber}
+		WHERE dept_id = #{deptId}
+	</update>
+	<!-- DELETE -->
+	<delete id="removeDepartment" parameterType="DepartmentVO">
+		DELETE FROM departments
+		WHERE department_id = #{deptId}
+	</delete>
+
+</mapper>

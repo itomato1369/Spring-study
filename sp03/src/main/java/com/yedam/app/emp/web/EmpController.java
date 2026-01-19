@@ -87,7 +87,7 @@ public class EmpController {
 		return "redirect:empInfo?employeeId=" + employeeId ;
 	}
 	
-	// 수정 -  페이지 단건조회 @가 없고 객체다 command object QueryString (key = value) ? 를 기준으로  이 page는 단건조회와 비슷
+	// 수정 -  페이지 단건조회 @가 없고  객체다 command object QueryString (key = value) ? 를 기준으로  이 page는 단건조회와 비슷
 	@GetMapping("empUpdate")
 	public String empUpdate(EmpVO empVO, Model model) {
 		// 제공할 service 
@@ -108,7 +108,12 @@ public class EmpController {
 	}
 	
 	
-	//  단건삭제 GET 다중삭제 POST 
+	/*
+	 *   단건삭제 GET 다중삭제 POST 
+	 *   매개변수가 있고 @가 없다  
+	 *   기본데이터형 
+	 *   = RequestParam 은 매개변수가 기본
+	 */
 	@GetMapping("empDelete")
 	// 매개변수가 key
 	public String empDelete(int empId) {
@@ -116,6 +121,7 @@ public class EmpController {
 		empService.remove(empId);
 		return "redirect:empList";
 	}
+	// empDelete?empId=
 	
 	
 	

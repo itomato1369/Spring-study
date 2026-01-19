@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <title>This is emp/info</title>
-  </head>
-  <body>
-    <div class="container">
-      <h3>UPDATE [[ ${emp.lastName} ]] ' s Information</h3>
-      <!--/* path경로는 action 
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default-layout}"
+	layout:fragment="Content">
+
+<head>
+<meta charset="UTF-8" />
+<th:block
+	th:replace="~{common/configs/default-configs :: ContextPathConfig}"></th:block>
+<th:block
+	th:replace="~{common/configs/default-configs :: BootstrapConfig}"></th:block>
+<title>This is emp/info</title>
+</head>
+<body>
+	<div class="container">
+		<h3>UPDATE [[ ${emp.lastName} ]] ' s Information</h3>
+		<!--/* path경로는 action 
               @{} 링크표현식  경로를 생성할 때 사용 
               context-path를 찾아줌
               변수가 아닌   /경로
@@ -29,52 +26,43 @@
               
               form을 쓰는 이유 값을 담으려고 
            */-->
-      <form
-        name="updateForm"
-        action="@{/empUpdate}"
-        method="post"
-        th:object="${emp}"
-      >
-        <div>
-          <div>
-            <!--/* 입력 tag는 속성이 없다 */-->
-            <label for="employee-id">employee ID</label>
-            <input
-              id="employee-id"
-              type="text"
-              th:field="*{employeeId}"
-              readonly
-            />
-          </div>
+		<form name="updateForm" action="@{/empUpdate}" method="post"
+			th:object="${emp}">
+			<div>
+				<div>
+					<!--/* 입력 tag는 속성이 없다 */-->
+					<label for="employee-id">employee ID</label> <input
+						id="employee-id" type="text" th:field="*{employeeId}" readonly />
+				</div>
 
-          <div>
-            <label for="name">last name</label>
-            <input id="name" type="text" th:field="*{lastName}" />
-          </div>
+				<div>
+					<label for="name">first name</label> <input id="name" type="text"
+						th:field="*{firstName}" />
+				</div>
 
-          <div>
-            <label for="email">email</label>
-            <input id="email" type="email" th:field="*{email}" />
-          </div>
+				<div>
+					<label for="email">email</label> <input id="email" type="email"
+						th:field="*{email}" />
+				</div>
 
-          <div>
-            <label for="hire-date">hire date</label>
-            <input id="hire-date" type="date" th:field="*{hireDate}" />
-          </div>
+				<div>
+					<label for="hire-date">hire date</label> <input id="hire-date"
+						type="date" th:field="*{hireDate}" />
+				</div>
 
-          <div>
-            <label for="salary">salary</label>
-            <input id="salary" type="number" step="0,01" th:field="*{salary}" />
-          </div>
-        </div>
+				<div>
+					<label for="salary">salary</label> <input id="salary" type="number"
+						step="0,01" th:field="*{salary}" />
+				</div>
+			</div>
 
-        <div>
-          <button type="button">UPDATE</button>
-        </div>
-      </form>
-    </div>
+			<div>
+				<button type="button">UPDATE</button>
+			</div>
+		</form>
+	</div>
 
-    <script>
+	<script>
       // form tag의 name
       updateForm.querySelector("button").addEventListener("click", updateAjax);
 
@@ -82,6 +70,8 @@
         /* 전송 data 반환 json으로 보낼 때는 반드시 content-type : 'application/json'
               headers에 선언하고 
               body에는 JSON.stringify() json문자열로 변환
+              각 각 event 주고 싶으면 for 반복문
+              동적 tag 추가는 따로 해줘야함
          */
         let dataObj = getEmpObj();
         fetch("empUpdate", {
@@ -118,6 +108,9 @@
       }
 
       // AJAX
+      /*
+      AXIOS는 외부 Library 
+      */
     </script>
-  </body>
+</body>
 </html>

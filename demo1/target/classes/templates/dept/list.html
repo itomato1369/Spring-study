@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--/* Thymeleaf 설정 */-->
+<html lang=ko xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<title>This is All Department</title>
+</head>
+<body>
+  <div class="container">
+    <h3>All Department</h3>
+      <table class="table">
+      <thead>
+          <tr>
+            <th>Dept ID</th>
+            <th>Department Name</th>
+            <th>Parent dept ID</th>
+            <th>Created date</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!--/* th:block 안에서 반복문 하면    th 콜론 each = 변수명 : ${cotroller에서 Model에 담도록 선언한 "변수명"}*/-->
+        <th:block th:each="info : ${dept}">
+             <tr>
+               <td>[[ ${info.deptId} ]]</td>
+               <td>[[ ${info.deptName} ]]</td>
+               <td>[[ ${info.parentDeptId} ]]</td>
+                <!--/* dates는 내장 util   #밑에서만 동작  */-->
+               <td>[[ ${#dates.format(info.createdAt, 'yyyy年MM月dd日')} ]]</td>
+               <td>[[ ${info.isLocation} ]]</td>
+             </tr>
+           </th:block>
+        </tbody>
+      </table>
+  </div>
+
+</body>
+</html>

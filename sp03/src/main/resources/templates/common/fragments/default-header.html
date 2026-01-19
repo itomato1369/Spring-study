@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<div lang=ko xmlns:th="http://www.thymeleaf.org/"
+                     th:fragment="DefaultHeader">
+                     
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+<button type="button" class="btn btn-link">Link</button>
+
+<ul class="dropdown-menu">
+  <li><h6 class="dropdown-header">Dropdown header</h6></li>
+  <li><a class="dropdown-item" href="#">Action</a></li>
+  <li><a class="dropdown-item" href="#">Another action</a></li>
+</ul>
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" th:href="@{/empList}">SELECT All employees</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" th:href="@{/empInsert}">Register employee</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
+
+</div>

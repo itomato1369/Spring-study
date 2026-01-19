@@ -1,39 +1,81 @@
 <!DOCTYPE html>
-<html lang=ko xmlns:th="http://www.thymeleaf.org/">
-<head>
-<meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<title>This is Practice</title>
-</head>
-<body>
-  <div class="container">
-    <h3>Employee Information Form</h3>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/"
+                          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+                          layout:decorate="~{common/layouts/default-layout}"
+                          layout:fragment="Content">
+                          <!--/*  ViewResolver가 동작  */-->
+  <head>
+    <meta charset="UTF-8" />
+    <!--/* page의 meta data */-->
+    <!--/* fragment 사용 호출 
+    replace  대체한다 head영역에서 주로 사용
+    (src/main/resources) classpath:/templates/common/configs/default-configs.html
+    가지고 오려는 파일 common/configs/default-configs 이것만 씀 :: 호출하고자 하는 대상
+    ViewResolver가 동작 
+    */-->
+    <th:block th:replace="~{common/configs/default-configs :: ContextPathConfig}"></th:block>
+    <th:block th:replace="~{common/configs/default-configs :: BootstrapConfig}"></th:block>
+    <title>This is Practice</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Employee Information Form</h3>
       <table class="table">
-      <thead>
+        <thead>
           <tr>
             <th>No.</th>
             <th>employee ID</th>
-            <th>last name</th>
+            <th>first name</th>
             <th>job id</th>
             <th>hire date</th>
+            <th>INFO</th>
           </tr>
         </thead>
         <tbody>
-        <!--/* 반복문 하면 th 콜론 each */-->
-        <th:block th:each="info, numbering: ${emp}">
-             <tr>
-               <td>[[ ${numbering.count} ]]</td>
-               <td>[[ ${info.employeeId} ]]</td>
-               <td>[[ ${info.firstName} ]]</td>
-               <td>[[ ${info.jobId} ]]</td>
-                <!--/* dates는 내장 util   #밑에서만 동작  */-->
-               <td>[[ ${#dates.format(info.hireDate, 'yyyy年MM月dd日')} ]]</td>
-             </tr>
-           </th:block>
+          <!--/* 반복문 하면 th 콜론 each */-->
+          <th:block th:each="info, numbering: ${emp}">
+            <tr>
+              <!--/* tr th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})} '|"
+             QueryString으로 값이 들어감 () 안에 다 적기
+             내가 작성하는게 문자열이 아니라 Thymeleaf가 읽어야 하는 코드다 ||
+       */-->
+              <td>[[ ${numbering.count} ]]</td>
+              <td>[[ ${info.employeeId} ]]</td>
+              <td>[[ ${info.firstName} ]]</td>
+              <td>[[ ${info.jobId} ]]</td>
+              <!--/* dates는 내장 util   #밑에서만 동작  */-->
+              <td>[[ ${#dates.format(info.hireDate, 'yyyy年MM月dd日')} ]]</td>
+              <td>
+                <button class="btn btn-primary"
+                  th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|"
+                >
+                  details
+                </button>
+              </td>
+              <!--/* th:onclick=수행하는 코드를 작성함 */-->
+            </tr>
+          </th:block>
         </tbody>
       </table>
-  </div>
+    </div>
 
-</body>
+    <script>
+      /* JavaScript Thymeleaf 섞어쓰지 말래 */ 
+      let contextPath = document.querySelector('meta[name="contextPath"]').getAttribute('value') ?? ' ';
+      /* meta태그의 name이 contextPath인 value 값을 가져옴 server로 부터 contextPath를 받아옴
+           ?? 변수가 null 혹은 undefined가 뜨면 그냥 공백을 표시  
+      */
+
+      document.querySelectorAll("tbody tr").forEach((trTag) => {
+        trTag.addEventListener('click', function (event) {
+        	// 현재 event가 진행중
+          let trTag = event.currentTarget;
+          let eId = trTag.querySelector('td:nth-of-type(2)').textContent;
+          // nth-of-type 자식요소 중에서 type을 체크
+          let url = contextPath + '/empInfo?employeeId=' + eId;
+          location.href = url;
+        });
+      });
+    </script>
+  </body>
 </html>
